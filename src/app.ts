@@ -12,7 +12,11 @@ import notFound from "./app/middleware/notFound";
 const app: Application = express();
 
 // Middleware setup
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({
+  origin: '*',
+  credentials: true,
+}));
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,7 +35,7 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
 
   res.status(StatusCodes.OK).json({
     success: true,
-    message: "Welcome to the Next Mart",
+    message: "Welcome to the FasionDB",
     version: "1.0.0",
     clientDetails: {
       ipAddress: clientIp,
@@ -45,8 +49,8 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
       )} minutes`,
     },
     developerContact: {
-      email: "fahimfiroz.ph@gmail.com",
-      website: "https://programming-hero.com",
+      email: "ssjoy43@gmail.com",
+      website: "https://shahsultan-islam-joy.vercel.app/",
     },
   });
 });
@@ -55,5 +59,5 @@ app.use(globalErrorHandler);
 
 //Not Found
 app.use(notFound);
-
-export default app; // Export the app for use in server.ts
+ // Export the app for use in server.ts
+export default app;

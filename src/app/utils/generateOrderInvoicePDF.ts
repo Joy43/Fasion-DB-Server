@@ -23,10 +23,10 @@ export const generateOrderInvoicePDF = async (order: IOrder): Promise<Buffer> =>
             doc.on('error', (err: Error) => reject(err));
 
             // Header with graphical design and logo
-            const logoWidth = 70; // Set the desired width for the logo
+            const logoWidth = 70; 
             const logoX = (doc.page.width - logoWidth) / 2; // Center the logo
             doc.image(logoBuffer, logoX, doc.y, { width: logoWidth });
-            doc.moveDown(6); // Move down after the logo
+            doc.moveDown(6); 
 
             doc.fontSize(20).font('Helvetica-Bold').fillColor('#000000').text('NextMert', { align: 'center' });
             doc.fontSize(10).text("Level-4, 34, Awal Centre, Banani, Dhaka", { align: 'center' });
