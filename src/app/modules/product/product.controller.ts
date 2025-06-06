@@ -9,7 +9,7 @@ import { StatusCodes } from "http-status-codes";
 const createProduct = catchAsync(async (req: Request, res: Response) => {
   const result = await ProductService.createProduct(
     req.body,
-    req.files as IImageFiles,
+
     req.user as IJwtPayload
   );
 

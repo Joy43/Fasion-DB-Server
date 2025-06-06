@@ -11,14 +11,14 @@ import { Product } from "../product/product.model";
 
 const createCategory = async (
   categoryData: Partial<ICategory>,
-  icon: IImageFile,
+
   authUser: IJwtPayload
 ) => {
 
   const category = new Category({
     ...categoryData,
     createdBy: authUser.userId,
-    icon: icon?.path
+   
   });
 
   const result = await category.save();

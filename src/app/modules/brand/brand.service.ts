@@ -10,12 +10,10 @@ import { Product } from '../product/product.model';
 
 const createBrand = async (
    brandData: Partial<IBrand>,
-   logo: IImageFile,
+
    authUser: IJwtPayload
 ) => {
-   if (logo && logo.path) {
-      brandData.logo = logo.path;
-   }
+ 
 
    const brand = new Brand({
       ...brandData,

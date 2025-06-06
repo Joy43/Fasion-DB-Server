@@ -27,6 +27,9 @@ const userSchema = new Schema<IUser, UserModel>(
          enum: [UserRole.ADMIN, UserRole.USER],
          default: UserRole.USER,
       },
+      photo:{
+   type: String,
+      },
       hasShop: {
          type: Boolean,
          default: false, // Default value is false

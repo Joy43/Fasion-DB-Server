@@ -14,8 +14,8 @@ router.get("/", CategoryController.getAllCategory)
 router.post(
     '/',
     auth(UserRole.ADMIN, UserRole.USER),
-    multerUpload.single('icon'),
-    parseBody,
+   
+    
     validateRequest(categoryValidation.createCategoryValidationSchema),
     CategoryController.createCategory
 );
@@ -24,7 +24,7 @@ router.patch(
     '/:id',
     auth(UserRole.ADMIN, UserRole.USER),
     multerUpload.single('icon'),
-    parseBody,
+
     validateRequest(categoryValidation.updateCategoryValidationSchema),
     CategoryController.updateCategory
 )

@@ -19,8 +19,7 @@ router.get(
 router.post(
     '/',
     auth(UserRole.USER),
-    multerUpload.single('logo'),
-    parseBody,
+
     validateRequest(ShopValidation.createShopValidation),
     ShopController.createShop
 )

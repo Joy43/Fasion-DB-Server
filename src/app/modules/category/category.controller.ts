@@ -11,7 +11,7 @@ const createCategory = catchAsync(async (req: Request, res: Response) => {
 
   const result = await CategoryService.createCategory(
     req.body,
-    req.file as IImageFile,
+
     req.user as IJwtPayload
   );
 

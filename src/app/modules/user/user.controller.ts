@@ -59,7 +59,7 @@ const myProfile = catchAsync(async (req, res) => {
 const updateProfile = catchAsync(async (req, res) => {
    const result = await UserServices.updateProfile(
       req.body,
-      req.file as IImageFile,
+   
       req.user as IJwtPayload
    );
 

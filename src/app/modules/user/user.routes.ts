@@ -5,8 +5,7 @@ import validateRequest from '../../middleware/validateRequest';
 import { UserValidation } from './user.validation';
 import auth from '../../middleware/auth';
 import { UserRole } from './user.interface';
-import { multerUpload } from '../../config/multer.config';
-import { parseBody } from '../../middleware/bodyParser';
+
 
 const router = Router();
 
@@ -24,9 +23,6 @@ router.post(
 router.patch(
    '/update-profile',
    auth(UserRole.USER),
-   multerUpload.single('profilePhoto'),
-   parseBody,
-   validateRequest(UserValidation.customerInfoValidationSchema),
    UserController.updateProfile
 );
 

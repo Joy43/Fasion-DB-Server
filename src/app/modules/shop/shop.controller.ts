@@ -9,7 +9,6 @@ import { StatusCodes } from 'http-status-codes';
 const createShop = catchAsync(async (req: Request, res: Response) => {
   const result = await ShopService.createShop(
     req.body,
-    req.file as IImageFile,
     req.user as IJwtPayload
   );
 

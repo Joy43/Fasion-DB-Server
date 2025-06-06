@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", router);
 
-// seedAdmin();
+
 
 // Test route
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
@@ -57,7 +57,7 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
 
 app.use(globalErrorHandler);
 
-//Not Found
+//---------Not Found----------
 app.use(notFound);
  // Export the app for use in server.ts
 export default app;

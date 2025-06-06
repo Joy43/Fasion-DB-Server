@@ -9,7 +9,6 @@ import { BrandService } from './brand.service';
 const createBrand = catchAsync(async (req: Request, res: Response) => {
    const result = await BrandService.createBrand(
       req.body,
-      req.file as IImageFile,
       req.user as IJwtPayload
    );
 

@@ -24,9 +24,8 @@ router.get('/:productId', ProductController.getSingleProduct);
 
 router.post(
    '/',
-   auth(UserRole.USER),
-   multerUpload.fields([{ name: 'images' }]),
-   parseBody,
+   auth(UserRole.USER), 
+ 
    validateRequest(productValidation.createProductValidationSchema),
    ProductController.createProduct
 );
@@ -34,8 +33,7 @@ router.post(
 router.patch(
    '/:productId',
    auth(UserRole.USER),
-   multerUpload.fields([{ name: 'images' }]),
-   parseBody,
+  
    ProductController.updateProduct
 );
 

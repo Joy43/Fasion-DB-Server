@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { IImageFile } from "../../interface/IImageFile";
+
 import { IShop } from "./shop.interface";
 import { IJwtPayload } from "../auth/auth.interface";
 import User from "../user/user.model";
@@ -7,7 +7,7 @@ import AppError from "../../errors/appError";
 import { StatusCodes } from "http-status-codes";
 import Shop from "./shop.model";
 
-const createShop = async (shopData: Partial<IShop>, logo: IImageFile, authUser: IJwtPayload) => {
+const createShop = async (shopData: Partial<IShop>, authUser: IJwtPayload) => {
 
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -24,9 +24,7 @@ const createShop = async (shopData: Partial<IShop>, logo: IImageFile, authUser: 
       throw new AppError(StatusCodes.NOT_ACCEPTABLE, 'User is not active!');
     }
 
-    if (logo) {
-      shopData.logo = logo.path
-    }
+   
 
     const shop = new Shop({
       ...shopData,
@@ -53,6 +51,7 @@ const createShop = async (shopData: Partial<IShop>, logo: IImageFile, authUser: 
   }
 };
 
+// -----------get my shop------------
 const getMyShop = async (authUser: IJwtPayload) => {
   const existingUser = await User.checkUserExist(authUser.userId);
   if (!existingUser.hasShop) {

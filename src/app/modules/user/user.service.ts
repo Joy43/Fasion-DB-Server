@@ -68,7 +68,7 @@ const getAllUser = async (query: Record<string, unknown>) => {
       meta,
    };
 };
-
+// -------------------my profile--------------
 const myProfile = async (authUser: IJwtPayload) => {
    const isUserExists = await User.findById(authUser.userId);
    if (!isUserExists) {
@@ -87,10 +87,9 @@ const myProfile = async (authUser: IJwtPayload) => {
    }
 
 }
-
+// ------------------update profile----------------
 const updateProfile = async (
    payload: Partial<ICustomer>,
-   file: IImageFile,
    authUser: IJwtPayload
 ) => {
    const isUserExists = await User.findById(authUser.userId);
@@ -102,9 +101,6 @@ const updateProfile = async (
       throw new AppError(StatusCodes.BAD_REQUEST, "User is not active!");
    }
 
-   if (file && file.path) {
-      payload.photo = file.path;
-   }
 
    const result = await Customer.findOneAndUpdate(
       { user: authUser.userId },
@@ -116,7 +112,7 @@ const updateProfile = async (
 
    return result;
 };
-
+// --------------use status update-------------
 const updateUserStatus = async (userId: string) => {
    const user = await User.findById(userId);
 

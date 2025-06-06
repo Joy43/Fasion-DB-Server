@@ -18,20 +18,10 @@ import { hasActiveShop } from '../../utils/hasActiveShop';
 
 const createProduct = async (
    productData: Partial<IProduct>,
-   productImages: IImageFiles,
+   
    authUser: IJwtPayload
 ) => {
    const shop = await hasActiveShop(authUser.userId);
-
-   const { images } = productImages;
-   if (!images || images.length === 0) {
-      throw new AppError(
-         StatusCodes.BAD_REQUEST,
-         'Product images are required.'
-      );
-   }
-
-   productData.imageUrls = images.map((image) => image.path);
 
    const isCategoryExists = await Category.findById(productData.category);
    if (!isCategoryExists) {
@@ -51,59 +41,8 @@ const createProduct = async (
    return result;
 };
 
-// const getAllProduct = async (query: Record<string, unknown>) => {
-//    const { minPrice, maxPrice, ...pQuery } = query;
 
-//    const productQuery = new QueryBuilder(
-//       Product.find()
-//          .populate('category', 'name')
-//          .populate('shop', 'shopName')
-//          .populate('brand', 'name'),
-//       pQuery
-//    )
-//       .search(['name', 'description'])
-//       .filter()
-//       .sort()
-//       .paginate()
-//       .fields()
-//       .priceRange(Number(minPrice) || 0, Number(maxPrice) || Infinity);
-
-//    const products = await productQuery.modelQuery.lean();
-
-//    const meta = await productQuery.countTotal();
-
-//    const productIds = products.map((product: any) => product._id);
-
-//    const flashSales = await FlashSale.find({
-//       product: { $in: productIds },
-//       discountPercentage: { $gt: 0 },
-//    }).select('product discountPercentage');
-
-//    const flashSaleMap = flashSales.reduce((acc, { product, discountPercentage }) => {
-//       //@ts-ignore
-//       acc[product.toString()] = discountPercentage;
-//       return acc;
-//    }, {});
-
-//    const updatedProducts = products.map((product: any) => {
-//       //@ts-ignore
-//       const discountPercentage = flashSaleMap[product._id.toString()];
-//       if (discountPercentage) {
-//          product.offerPrice = product.price * (1 - discountPercentage / 100);
-//       } else {
-//          product.offerPrice = null;
-//       }
-//       return product;
-//    });
-
-//    return {
-//       meta,
-//       result: updatedProducts,
-//    };
-// };
-
-// Product.service.ts
-
+// -------------------get all products--------
 const getAllProduct = async (query: Record<string, unknown>) => {
    const {
       minPrice,
@@ -278,8 +217,6 @@ const getSingleProduct = async (productId: string) => {
       reviews
    };
 };
-
-
 
 
 const getMyShopProducts = async (query: Record<string, unknown>, authUser: IJwtPayload) => {
