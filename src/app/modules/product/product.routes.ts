@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import auth from '../../middleware/auth';
 import { UserRole } from '../user/user.interface';
-import { multerUpload } from '../../config/multer.config';
-import { parseBody } from '../../middleware/bodyParser';
 import { ProductController } from './product.controller';
 import validateRequest from '../../middleware/validateRequest';
 import { productValidation } from './product.validation';

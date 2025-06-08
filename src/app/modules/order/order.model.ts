@@ -121,7 +121,7 @@ orderSchema.pre("validate", async function (next) {
     console.log(price);
     totalAmount += price;
   }
-
+// -----------CUPPON ORDER----------
   if (order.coupon) {
     const couponDetails = await Coupon.findById(order.coupon);
     if (String(shopId) === couponDetails?.shop.toString()) {

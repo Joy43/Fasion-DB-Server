@@ -15,6 +15,7 @@ import { StatusCodes } from "http-status-codes";
 import Shop from "../shop/shop.model";
 import QueryBuilder from "../../builder/QueryBuilder";
 
+// ------------------CRATE ORDER SERVICE------------------
 const createOrder = async (
   orderData: Partial<IOrder>,
   authUser: IJwtPayload
@@ -69,7 +70,7 @@ const createOrder = async (
       }
     }
 
-    // Create the order
+    // ----------Create the order-------------
     const order = new Order({
       ...orderData,
       user: authUser.userId,

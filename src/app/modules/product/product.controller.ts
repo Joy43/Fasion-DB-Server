@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import catchAsync from "../../utils/catchAsync";
 import { ProductService } from "./product.service";
-import { IImageFiles } from "../../interface/IImageFile";
+
 import { IJwtPayload } from "../auth/auth.interface";
 import sendResponse from "../../utils/sendResponse";
 import { StatusCodes } from "http-status-codes";
-
+// --------------crate product---------------------
 const createProduct = catchAsync(async (req: Request, res: Response) => {
   const result = await ProductService.createProduct(
     req.body,
@@ -32,7 +32,7 @@ const getAllProduct = catchAsync(async (req, res) => {
     data: result.result,
   });
 });
-
+// ------------tending products-------------
 const getTrendingProducts = catchAsync(async (req, res) => {
   const { limit } = req.query;
   const result = await ProductService.getTrendingProducts(Number(limit));
@@ -81,7 +81,7 @@ const updateProduct = catchAsync(async (req, res) => {
   const result = await ProductService.updateProduct(
     productId,
     payload,
-    req.files as IImageFiles,
+ 
     user as IJwtPayload
   );
 

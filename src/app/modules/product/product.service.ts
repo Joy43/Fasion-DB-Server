@@ -141,7 +141,7 @@ const getAllProduct = async (query: Record<string, unknown>) => {
    };
 };
 
-
+// --------------------get trending products----------------
 const getTrendingProducts = async (limit: number) => {
    const now = new Date();
    const last30Days = new Date(now.setDate(now.getDate() - 30));
@@ -217,7 +217,7 @@ const getSingleProduct = async (productId: string) => {
       reviews
    };
 };
-
+// ----------------- my shop products--------------
 
 const getMyShopProducts = async (query: Record<string, unknown>, authUser: IJwtPayload) => {
    const userHasShop = await User.findById(authUser.userId).select('isActive hasShop');
@@ -273,10 +273,10 @@ const getMyShopProducts = async (query: Record<string, unknown>, authUser: IJwtP
 const updateProduct = async (
    productId: string,
    payload: Partial<IProduct>,
-   productImages: IImageFiles,
+   
    authUser: IJwtPayload
 ) => {
-   const { images } = productImages;
+   
 
    const user = await User.findById(authUser.userId);
    const shop = await Shop.findOne({ user: user?._id });
@@ -298,9 +298,7 @@ const updateProduct = async (
       throw new AppError(StatusCodes.NOT_FOUND, 'Product Not Found');
    }
 
-   if (images && images.length > 0) {
-      payload.imageUrls = images.map((image) => image.path);
-   }
+ 
 
    return await Product.findByIdAndUpdate(productId, payload, { new: true });
 };

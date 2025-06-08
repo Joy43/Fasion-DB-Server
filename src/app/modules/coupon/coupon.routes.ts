@@ -21,7 +21,7 @@ router.patch(
 
 router.post(
    '/:couponCode',
-   auth(UserRole.ADMIN, UserRole.USER), // Ensure only authorized users can fetch the coupon
+   auth(UserRole.ADMIN, UserRole.USER), 
    couponController.getCouponByCode
 );
 
