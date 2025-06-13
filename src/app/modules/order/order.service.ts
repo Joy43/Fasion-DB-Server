@@ -14,8 +14,7 @@ import AppError from "../../errors/appError";
 import { StatusCodes } from "http-status-codes";
 import Shop from "../shop/shop.model";
 import QueryBuilder from "../../builder/QueryBuilder";
-
-// ------------------CRATE ORDER SERVICE------------------
+// -------- create order now------------------
 const createOrder = async (
   orderData: Partial<IOrder>,
   authUser: IJwtPayload
@@ -70,7 +69,7 @@ const createOrder = async (
       }
     }
 
-    // ----------Create the order-------------
+    // Create the order
     const order = new Order({
       ...orderData,
       user: authUser.userId,
@@ -93,7 +92,7 @@ const createOrder = async (
     await payment.save({ session });
 
     let result;
-
+// -----------initail payment---------
     if (createdOrder.paymentMethod == "Online") {
       result = await sslService.initPayment({
         total_amount: createdOrder.finalAmount,
@@ -138,6 +137,8 @@ const createOrder = async (
   }
 };
 
+
+// --------get my shop order-------------
 const getMyShopOrders = async (
   query: Record<string, unknown>,
   authUser: IJwtPayload

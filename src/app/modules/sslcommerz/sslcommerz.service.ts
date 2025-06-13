@@ -13,7 +13,7 @@ const app = express();
 
 const store_id = config.ssl.store_id as string;
 const store_passwd = config.ssl.store_pass as string;
-const is_live = false; // true for live, false for sandbox
+const is_live = false; 
 
 
 // SSLCommerz init
@@ -52,21 +52,20 @@ const initPayment = async (paymentData: { total_amount: number, tran_id: string 
     };
 
     const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
+try {
+  const apiResponse = await sslcz.init(data);
+  console.log("SSLCommerz Response:", apiResponse);
 
-    try {
-        const apiResponse = await sslcz.init(data);
+  if (apiResponse && apiResponse.GatewayPageURL) {
+    return apiResponse.GatewayPageURL;
+  } else {
+    throw new AppError(StatusCodes.BAD_GATEWAY, `Failed to generate payment gateway URL. Reason: ${apiResponse?.failedreason || 'Unknown'}`);
+  }
+} catch (error) {
+  console.error("SSLCommerz Payment Error:", error);
+  throw new AppError(StatusCodes.INTERNAL_SERVER_ERROR, "An error occurred while processing payment.");
+}
 
-        // Redirect the user to the payment gateway
-        const GatewayPageURL = apiResponse.GatewayPageURL;
-
-        if (GatewayPageURL) {
-            return GatewayPageURL;
-        } else {
-            throw new AppError(StatusCodes.BAD_GATEWAY, "Failed to generate payment gateway URL.");
-        }
-    } catch (error) {
-        throw new AppError(StatusCodes.INTERNAL_SERVER_ERROR, "An error occurred while processing payment.");
-    }
 };
 
 
@@ -174,4 +173,3 @@ export const sslService = {
     initPayment,
     validatePaymentService
 };
-
