@@ -52,6 +52,7 @@ const initPayment = async (paymentData: { total_amount: number, tran_id: string 
     };
 
     const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
+    // ----------payment check is valid or invalid now----------
 try {
   const apiResponse = await sslcz.init(data);
   console.log("SSLCommerz Response:", apiResponse);
