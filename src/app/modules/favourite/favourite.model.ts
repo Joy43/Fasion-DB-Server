@@ -1,16 +1,17 @@
+import { Product } from './../product/product.model';
 import mongoose, { Schema, Document } from "mongoose";
 import { IFavourite } from "./favourite.interface";
 
-const wishlistSchema = new Schema<IFavourite>(
+const FavouriteSchema= new Schema<IFavourite>(
   {
 user: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    car: {
+    product: {
       type: Schema.Types.ObjectId,
-      ref: "Car",
+      ref: "Product",
       required: true,
     },
   },
@@ -20,6 +21,6 @@ user: {
 );
 
 // Create the Wishlist model
-const Wishlist = mongoose.model<IFavourite>("Wishlist", wishlistSchema);
+const Favourite = mongoose.model<IFavourite>("Favourite", FavouriteSchema);
 
-export default Wishlist;
+export default Favourite;
