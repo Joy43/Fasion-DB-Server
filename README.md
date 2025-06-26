@@ -3,23 +3,27 @@
   <h1>FasionDB - Server</h1>
   <p><em># FasionDB buy product</em></p>
 
-  <img alt="last-commit" src="https://img.shields.io/github/last-commit/rafiqwe/RabFlix_Movies?style=flat&logo=git&logoColor=white&color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
-  <img alt="repo-top-language" src="https://img.shields.io/github/languages/top/rafiqwe/RabFlix_Movies?style=flat&color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
-  <img alt="repo-language-count" src="https://img.shields.io/github/languages/count/rafiqwe/RabFlix_Movies?style=flat&color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+  <!-- GitHub Repo Badges -->
+  <img alt="last-commit" src="https://img.shields.io/github/last-commit/Joy43/Fasion-DB-Server?style=flat&logo=git&logoColor=white&color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+  <img alt="repo-top-language" src="https://img.shields.io/github/languages/top/Joy43/Fasion-DB-Server?style=flat&color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+  <img alt="repo-language-count" src="https://img.shields.io/github/languages/count/Joy43/Fasion-DB-Server?style=flat&color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
 
   <p><em>Built with the tools and technologies:</em></p>
 
+  <!-- Tech Stack Badges -->
   <img alt="JSON" src="https://img.shields.io/badge/JSON-000000.svg?style=flat&logo=JSON&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="Markdown" src="https://img.shields.io/badge/Markdown-000000.svg?style=flat&logo=Markdown&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat&logo=JavaScript&logoColor=black" class="inline-block mx-1" style="margin: 0px 2px;">
-  <img alt="React" src="https://img.shields.io/badge/React-61DAFB.svg?style=flat&logo=React&logoColor=black" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="ESLint" src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat&logo=ESLint&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="Axios" src="https://img.shields.io/badge/Axios-5A29E4.svg?style=flat&logo=Axios&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="Node.js" src="https://img.shields.io/badge/Node.js-339933.svg?style=flat&logo=node.js&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=flat&logo=TypeScript&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="Yarn" src="https://img.shields.io/badge/Yarn-2C8EBB.svg?style=flat&logo=Yarn&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="Mongoose" src="https://img.shields.io/badge/Mongoose-880000.svg?style=flat&logo=mongoose&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+  <img alt="Express.js" src="https://img.shields.io/badge/Express.js-000000.svg?style=flat&logo=express&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+  <img alt="Multer" src="https://img.shields.io/badge/Multer-1B1F23.svg?style=flat&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
 </div>
+
 
 <br>
 # FasionDB - Server
