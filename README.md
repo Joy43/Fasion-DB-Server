@@ -11,6 +11,7 @@
   <p><em>Built with the tools and technologies:</em></p>
 
   <!-- Tech Stack Badges -->
+  <img alt="Express.js" src="https://img.shields.io/badge/Express.js-000000.svg?style=flat&logo=express&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="JSON" src="https://img.shields.io/badge/JSON-000000.svg?style=flat&logo=JSON&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="Markdown" src="https://img.shields.io/badge/Markdown-000000.svg?style=flat&logo=Markdown&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat&logo=JavaScript&logoColor=black" class="inline-block mx-1" style="margin: 0px 2px;">
@@ -20,7 +21,7 @@
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=flat&logo=TypeScript&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="Yarn" src="https://img.shields.io/badge/Yarn-2C8EBB.svg?style=flat&logo=Yarn&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="Mongoose" src="https://img.shields.io/badge/Mongoose-880000.svg?style=flat&logo=mongoose&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
-  <img alt="Express.js" src="https://img.shields.io/badge/Express.js-000000.svg?style=flat&logo=express&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+  
   <img alt="Multer" src="https://img.shields.io/badge/Multer-1B1F23.svg?style=flat&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
 </div>
 
