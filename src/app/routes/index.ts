@@ -11,6 +11,7 @@ import { ShopRoutes } from '../modules/shop/shop.routes';
 import { ReviewRoutes } from '../modules/review/review.routes';
 import { FlashSaleRoutes } from '../modules/flashSell/flashSale.routes';
 import { MetaRoutes } from '../modules/meta/meta.route';
+import { Favouriterouter } from '../modules/favourite/favorite.route';
 const router = Router();
 
 const moduleRoutes = [
@@ -58,10 +59,11 @@ const moduleRoutes = [
       path: '/review',
       route: ReviewRoutes,
    },
-   {
-      path: '/meta',
-      route: MetaRoutes,
+     {
+      path: '/favourite',
+      route: Favouriterouter,
    },
+                                    
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

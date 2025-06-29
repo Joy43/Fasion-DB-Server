@@ -10,7 +10,7 @@ const createFavorite=catchAsync(async(req:Request,res:Response)=>{
     const result=await FavouriteService.CreateWishlist(req.body,authUser);
    sendResponse(res,{
     success:true,
-    message:"crearte wishlist is sucessfully user wise",
+    message:"wishlist is sucessfully user wise",
     statusCode:StatusCodes.OK,
     data:result
   })
