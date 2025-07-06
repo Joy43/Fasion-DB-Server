@@ -3,3 +3,10 @@ https://documenter.getpostman.com/view/28371413/2sAYQXpCyd
 https://i.ibb.co/xtth0t4J/carblog-3.png
 https://i.ibb.co/jZM8j1zm/carblog-2.png
 https://i.ibb.co/y25NvtJ/carblog-1.png
+
+
+docker build .
+docker images
+docker run 8369522c586f
+docker ps
+docker ps -a 
