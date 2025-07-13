@@ -38,7 +38,7 @@ async function bootstrap() {
       //await seed();
 
       server = app.listen(config.port, () => {
-         console.log(`🚀 Application is running on port ${config.port}`);
+         console.log(`🚀 Application is running on port http://localhost:${config.port}`);
       });
 
       // Listen for termination signals

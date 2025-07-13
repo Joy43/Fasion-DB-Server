@@ -10,3 +10,4 @@ docker images
 docker run 8369522c586f
 docker ps
 docker ps -a 
+docker run p 5000:5000 sha256:808798d4da18e72cf91a6ea8f9202d50fe26205a9d9561d3a9ef23480d7f5f14
