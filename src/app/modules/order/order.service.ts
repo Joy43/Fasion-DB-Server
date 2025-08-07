@@ -195,7 +195,7 @@ const getOrderDetails = async (orderId: string) => {
   order.payment = await Payment.findOne({ order: order._id });
   return order;
 };
-
+// ----------------------get my orders------------------
 const getMyOrders = async (
   query: Record<string, unknown>,
   authUser: IJwtPayload

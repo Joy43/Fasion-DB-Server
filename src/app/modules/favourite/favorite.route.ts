@@ -11,6 +11,7 @@ router.post(
   WishListController.createWishlist
 );
 router.get("/", auth(UserRole.USER), WishListController.getWishlist);
+
 router.get(
   "/",
   auth(UserRole.USER, UserRole.ADMIN),
