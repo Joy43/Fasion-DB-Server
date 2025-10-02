@@ -94,8 +94,8 @@ userSchema.post('save', function (doc, next) {
 
 userSchema.set('toJSON', {
    transform: (_doc, ret) => {
-      delete ret.password;
-      return ret;
+      const { password, ...userWithoutPassword } = ret;
+      return userWithoutPassword;
    },
 });
 

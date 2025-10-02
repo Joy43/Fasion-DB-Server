@@ -165,9 +165,11 @@ const forgotPassword = async ({ email }: { email: string }) => {
 
    const otp = generateOtp();
 
-   const otpToken = jwt.sign({ otp, email }, config.jwt_otp_secret as string, {
-      expiresIn: '5m',
-   });
+   const otpToken = createToken(
+      { otp, email } as any,
+      config.jwt_otp_secret as string,
+      '5m'
+   );
 
    await User.updateOne({ email }, { otpToken });
 
@@ -223,9 +225,11 @@ const verifyOTP = async (
    user.otpToken = null;
    await user.save();
 
-   const resetToken = jwt.sign({ email }, config.jwt_pass_reset_secret as string, {
-      expiresIn: config.jwt_pass_reset_expires_in,
-   });
+   const resetToken = createToken(
+      { email } as any,
+      config.jwt_pass_reset_secret as string,
+      config.jwt_pass_reset_expires_in as string
+   );
 
    // Return the reset token
    return {
