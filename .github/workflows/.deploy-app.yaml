@@ -67,11 +67,13 @@ jobs:
                
               # install Production dependencies ON Ec2
               ssh $EC2_USER@$EC2_HOST "cd ~/app && export PATH=$PATH:/run/user/
-              1000/frm_multishells/112424_1734077954807/bin && yarn install --frozen-lockfile"
+              1000/frm_multishells/112424_1734077954807/bin && yarn install 
+              --frozen-lockfile"
 
               #stop existing pm2 process
               ssh $EC2_USER@$EC2_HOST "export PATH=$PATH:/run/user/1000/
-              frm_multishells/112424_1734077954807/bin && pm2 delete nodejs-app || true"
+              frm_multishells/112424_1734077954807/bin && pm2 delete nodejs-app || 
+              true"
        
               # start the application with pm2
               ssh $EC2_USER@$EC2_HOST "cd ~/app && export PATH=$PATH:/run/user/1000/
