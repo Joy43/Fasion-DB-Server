@@ -28,7 +28,7 @@ const seedAdmin = async () => {
 
             console.log('Admin user created successfully.');
         } else {
-            console.log('Admin user already exists.');
+            console.log('Admin user already exists. No action taken.');
         }
     } catch (error) {
         console.error('Error seeding admin user:', error);
