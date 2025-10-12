@@ -163,7 +163,7 @@ const validatePaymentService = async (tran_id: string): Promise<boolean> => {
         await session.abortTransaction();
         session.endSession();
 
-        console.error(error); // Log the error for debugging
+        console.error(error); 
         return false;
     }
 };

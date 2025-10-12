@@ -12,18 +12,18 @@ import notFound from "./app/middleware/notFound";
 const app: Application = express();
 
 // Middleware setup
-app.use(cors({
-  origin: '*',
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", router);
-
-
 
 // Test route
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
@@ -33,31 +33,54 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
   const serverPlatform = os.platform();
   const serverUptime = os.uptime();
 
-  res.status(StatusCodes.OK).json({
-    success: true,
-    message: "Welcome to the FasionDB",
-    version: "1.0.0",
-    clientDetails: {
-      ipAddress: clientIp,
-      accessedAt: currentDateTime,
-    },
-    serverDetails: {
-      hostname: serverHostname,
-      platform: serverPlatform,
-      uptime: `${Math.floor(serverUptime / 60 / 60)} hours ${Math.floor(
-        (serverUptime / 60) % 60
-      )} minutes`,
-    },
-    developerContact: {
-      email: "ssjoy43@gmail.com",
-      website: "https://shahsultan-islam-joy.vercel.app/",
-    },
-  });
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>FasionDB Server Info</title>
+      <style>
+        body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 20px; }
+        .container { background: white; padding: 20px; border-radius: 10px; max-width: 600px; margin: auto; }
+        h1 { color: #FFA500; }
+        pre { background: #eee; padding: 10px; border-radius: 5px; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Welcome to FasionDB Server</h1>
+        <p><strong>Version:</strong> 1.0.0</p>
+
+        <h2>Client Details</h2>
+        <pre>
+IP Address: ${clientIp}
+Accessed At: ${currentDateTime}
+        </pre>
+
+        <h2>Server Details</h2>
+        <pre>
+Hostname: ${serverHostname}
+Platform: ${serverPlatform}
+Uptime: ${Math.floor(serverUptime / 3600)}h ${Math.floor(
+    (serverUptime % 3600) / 60
+  )}m
+        </pre>
+
+        <h2>Developer Contact</h2>
+        <pre>
+Email: ssjoy43@gmail.com
+Website: https://shahsultan-islam-joy.vercel.app/
+        </pre>
+      </div>
+    </body>
+    </html>
+  `;
+
+  res.status(StatusCodes.OK).send(htmlContent);
 });
 
 app.use(globalErrorHandler);
 
 //---------Not Found----------
 app.use(notFound);
- // Export the app for use in server.ts
+
 export default app;

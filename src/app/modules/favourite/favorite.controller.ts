@@ -19,7 +19,7 @@ const createWishlist = catchAsync(async (req: Request, res: Response) => {
   const result = await WishListService.GetWishlistByUser(authUser);
   sendResponse(res,{
     success:true,
-    message:"getwishlist is sucessfully user wise",
+    message:"get wishlist is sucess-fully user wise",
     statusCode:StatusCodes.OK,
     data:result
   })
