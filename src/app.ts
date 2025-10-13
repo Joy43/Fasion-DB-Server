@@ -26,7 +26,7 @@ const swaggerOptions = {
     definition: {
         openapi: "3.0.0",
         info: {
-            title: "Fahad Pervez API - Team Future-Stack",
+            title: "FasionDB API - Documentation Written by SS JOY",
             version: "1.0.0",
             description: "Express API with auto-generated Swagger docs",
         },
@@ -36,11 +36,11 @@ const swaggerOptions = {
             ...orderSwaggerDoc
         },
         servers: configs.env === "production" ? [
-            { url: "https://fahadpervez-backend.onrender.com" },
-            { url: "http://localhost:5000" },
+            { url: "https://fasion-db-server.onrender.com" },
+            { url: "http://localhost:5050" },
         ] : [
-            { url: "http://localhost:5000" },
-            { url: "https://fahadpervez-backend.onrender.com" },
+            { url: "http://localhost:5050" },
+            { url: "https://fasion-db-server.onrender.com" },
         ],
         components: {
             securitySchemes: {
