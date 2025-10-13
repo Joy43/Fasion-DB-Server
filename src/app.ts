@@ -1,17 +1,76 @@
 import cors from "cors";
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, { Application } from "express";
 import cookieParser from "cookie-parser";
 import os from "os";
+import path from "path";
 import { StatusCodes } from "http-status-codes";
+
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+
 import router from "./app/routes";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
-// import seedAdmin from './app/DB/seed';
-// import { sslService } from './app/modules/sslcommerz/sslcommerz.service';
+import { authDocs } from "./swagger/authDocs";
+import { orderSwaggerDoc } from "./app/modules/order/orderSwaggerDoc";
+import { userDocs } from "./swagger/userDoc";
+
+// Example env variable
+const configs = { env: process.env.NODE_ENV || "development" };
 
 const app: Application = express();
 
-// Middleware setup
+// ------------------- Swagger Setup -------------------
+
+const swaggerOptions = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Fahad Pervez API - Team Future-Stack",
+            version: "1.0.0",
+            description: "Express API with auto-generated Swagger docs",
+        },
+        paths: {
+            ...authDocs,
+            ...userDocs,
+            ...orderSwaggerDoc
+        },
+        servers: configs.env === "production" ? [
+            { url: "https://fahadpervez-backend.onrender.com" },
+            { url: "http://localhost:5000" },
+        ] : [
+            { url: "http://localhost:5000" },
+            { url: "https://fahadpervez-backend.onrender.com" },
+        ],
+        components: {
+            securitySchemes: {
+                AuthorizationToken: {
+                    type: "apiKey",
+                    in: "header",
+                    name: "Authorization",
+                    description: "Put your accessToken here ",
+                },
+            },
+        },
+        security: [
+            {
+                AuthorizationToken: []
+            },
+        ],
+    },
+    apis: [
+        path.join(
+            __dirname,
+            configs.env === "production" ? "./**/*.js" : "./**/*.ts"
+        ),
+    ],
+};
+
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// ------------------- Middleware -------------------
 app.use(
   cors({
     origin: "*",
@@ -23,10 +82,11 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// ------------------- Routes -------------------
 app.use("/api/v1", router);
 
-// Test route
-app.get("/", (req: Request, res: Response, next: NextFunction) => {
+// ------------------- Test Route -------------------
+app.get("/", (req, res) => {
   const currentDateTime = new Date().toISOString();
   const clientIp = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
   const serverHostname = os.hostname();
@@ -78,9 +138,8 @@ Website: https://shahsultan-islam-joy.vercel.app/
   res.status(StatusCodes.OK).send(htmlContent);
 });
 
+// ------------------- Error Handlers -------------------
 app.use(globalErrorHandler);
-
-//---------Not Found----------
 app.use(notFound);
 
 export default app;
