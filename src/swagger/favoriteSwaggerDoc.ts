@@ -50,7 +50,7 @@ export const favoriteSwaggerDoc = {
           },
         },
         400: {
-          description: "Invalid input or product already in wishlist",
+          description: "Invalid input or product already in wishlist for user",
         },
       },
     },
