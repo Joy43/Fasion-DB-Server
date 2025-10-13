@@ -14,6 +14,8 @@ import notFound from "./app/middleware/notFound";
 import { authDocs } from "./swagger/authDocs";
 import { orderSwaggerDoc } from "./app/modules/order/orderSwaggerDoc";
 import { userDocs } from "./swagger/userDoc";
+import { productSwaggerDoc } from "./swagger/productSwaggerDoc";
+import { favoriteSwaggerDoc } from "./swagger/favoriteSwaggerDoc";
 
 // Example env variable
 const configs = { env: process.env.NODE_ENV || "development" };
@@ -28,12 +30,14 @@ const swaggerOptions = {
         info: {
             title: "FasionDB API - Documentation Written by SS JOY",
             version: "1.0.0",
-            description: "Express API with auto-generated Swagger docs",
+            description: "Express API with auto-generated Swagger docs now available at /docs",
         },
         paths: {
             ...authDocs,
             ...userDocs,
-            ...orderSwaggerDoc
+            ...orderSwaggerDoc,
+            ...productSwaggerDoc,
+            ...favoriteSwaggerDoc
         },
         servers: configs.env === "production" ? [
             { url: "https://fasion-db-server.onrender.com" },
