@@ -7,6 +7,7 @@ import { JwtPayload } from "jsonwebtoken";
 import mongoose from "mongoose";
 import AppError from "../../errors/appError";
 import Wishlist from './favourite.model';
+import { sendMessageToToken } from "../../utils/fcmService";
 
 
 
@@ -54,6 +55,20 @@ console.log("Full Payload:", payload);
   const populatedWishlist = await Wishlist.findById(newWishlist._id)
     .populate("user")
     .populate("product");
+
+    if (user.fcmToken) {
+    try {
+      await sendMessageToToken(user.fcmToken, {
+        title: "Wishlist Updated 💖",
+        body: `You added "${populatedWishlist?.product?.id}" to your wishlist.`,
+        data: { productId: String(productId) },
+      });
+    } catch (err) {
+      console.error("Error sending FCM notification:", err);
+    }
+  } else {
+    console.warn(`⚠️ User ${user.email} has no FCM token`);
+  }
 
   return {
     success: true,

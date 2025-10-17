@@ -58,7 +58,12 @@ export const authDocs = {
     post: {
       tags: ["Auth"],
       summary: "Change Password",
-      security: [{ AuthorizationToken: [] }],
+      AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       description: "Allows authenticated users to change their password.",
       requestBody: {
         required: true,

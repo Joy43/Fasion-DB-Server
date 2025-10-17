@@ -11,6 +11,7 @@ import { ShopRoutes } from "../modules/shop/shop.routes";
 import { ReviewRoutes } from "../modules/review/review.routes";
 import { FlashSaleRoutes } from "../modules/flashSell/flashSale.routes";
 import { Favouriterouter } from "../modules/favourite/favorite.route";
+import { Notificationrouter } from "../modules/notification/notification.route";
 const router = Router();
 
 const moduleRoutes = [
@@ -61,6 +62,10 @@ const moduleRoutes = [
   {
     path: "/favourite",
     route: Favouriterouter,
+  },
+  {
+    path: "/notification",
+    route: Notificationrouter,
   },
 ];
 

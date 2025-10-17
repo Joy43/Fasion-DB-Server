@@ -4,7 +4,12 @@ export const favoriteSwaggerDoc = {
       summary: "Add a product to wishlist",
       description: "Add a product to the logged-in user's wishlist.",
       tags: ["Favourite"],
-      security: [{ AuthorizationToken: [] }],
+        AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       requestBody: {
         required: true,
         content: {
@@ -58,7 +63,12 @@ export const favoriteSwaggerDoc = {
       summary: "Get wishlist for logged-in user",
       description: "Retrieve all wishlist items for the current user.",
       tags: ["Favourite"],
-      security: [{ AuthorizationToken: [] }],
+        AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       responses: {
         200: {
           description: "List of wishlist items",

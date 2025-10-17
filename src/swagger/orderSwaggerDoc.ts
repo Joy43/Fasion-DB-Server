@@ -1,10 +1,15 @@
-export const orderSwaggerDoc = {
-  "/api/v1/orders": {
+export const orderwaggerDoc = {
+  "/api/v1/order": {
     post: {
-      tags: ["Orders"],
+      tags: ["order"],
       summary: "Create a new order",
       description: "Allows a user to place an order with one or more products.",
-      security: [{ AuthorizationToken: [] }],
+      AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       requestBody: {
         required: true,
         content: {
@@ -12,13 +17,16 @@ export const orderSwaggerDoc = {
             schema: {
               type: "object",
               properties: {
-                shop: { type: "string", example: "652fcb84b0d0d7d34e0a7a99" },
+                shop: { type: "string", example: "68459ea76dfcb8bc57b68ce8" },
                 products: {
                   type: "array",
                   items: {
                     type: "object",
                     properties: {
-                      product: { type: "string", example: "652fcb84b0d0d7d34e0a7a22" },
+                      product: {
+                        type: "string",
+                        example: "6845a1d06dfcb8bc57b68d14",
+                      },
                       quantity: { type: "number", example: 2 },
                       unitPrice: { type: "number", example: 250 },
                       color: { type: "string", example: "Red" },
@@ -30,8 +38,15 @@ export const orderSwaggerDoc = {
                 discount: { type: "number", example: 50 },
                 deliveryCharge: { type: "number", example: 30 },
                 finalAmount: { type: "number", example: 480 },
-                shippingAddress: { type: "string", example: "123 Dhaka Street, Bangladesh" },
-                paymentMethod: { type: "string", enum: ["Cash", "Card", "Online"], example: "Online" },
+                shippingAddress: {
+                  type: "string",
+                  example: "123 Dhaka Street, Bangladesh",
+                },
+                paymentMethod: {
+                  type: "string",
+                  enum: ["Cash", "Card", "Online"],
+                  example: "Online",
+                },
               },
               required: [
                 "shop",
@@ -53,38 +68,55 @@ export const orderSwaggerDoc = {
     },
   },
 
-  "/api/v1/orders/my-orders": {
+  "/api/v1/order/my-order": {
     get: {
-      tags: ["Orders"],
-      summary: "Get user's own orders",
-      description: "Fetch all orders placed by the currently logged-in user.",
-      security: [{ AuthorizationToken: [] }],
+      tags: ["order"],
+      summary: "Get user's own order",
+      description: "Fetch all order placed by the currently logged-in user.",
+      AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       responses: {
-        200: { description: "Orders fetched successfully" },
+        200: { description: "order fetched successfully" },
         401: { description: "Unauthorized" },
       },
     },
   },
 
-  "/api/v1/orders/my-shop-orders": {
+  "/api/v1/order/my-shop-order": {
     get: {
-      tags: ["Orders"],
-      summary: "Get orders for user's shop",
-      description: "Fetch all orders related to the user's shop (for shop owners).",
-      security: [{ AuthorizationToken: [] }],
+      tags: ["order"],
+      summary: "Get order for user's shop",
+      description:
+        "Fetch all order related to the user's shop (for shop owners).",
+      AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       responses: {
-        200: { description: "Shop orders fetched successfully" },
+        200: { description: "Shop order fetched successfully" },
         401: { description: "Unauthorized" },
       },
     },
   },
 
-  "/api/v1/orders/{orderId}": {
+  "/api/v1/order/{orderId}": {
     get: {
-      tags: ["Orders"],
+      tags: ["order"],
       summary: "Get order details",
-      description: "Retrieve detailed information about a specific order by ID.",
-      security: [{ AuthorizationToken: [] }],
+      description:
+        "Retrieve detailed information about a specific order by ID.",
+      AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       parameters: [
         {
           name: "orderId",
@@ -102,12 +134,18 @@ export const orderSwaggerDoc = {
     },
   },
 
-  "/api/v1/orders/{orderId}/status": {
+  "/api/v1/order/{orderId}/status": {
     patch: {
-      tags: ["Orders"],
+      tags: ["order"],
       summary: "Change order status",
-      description: "Allows updating an order’s status (Pending, Processing, Completed, Cancelled).",
-      security: [{ AuthorizationToken: [] }],
+      description:
+        "Allows updating an order’s status (Pending, Processing, Completed, Cancelled).",
+      AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       parameters: [
         {
           name: "orderId",

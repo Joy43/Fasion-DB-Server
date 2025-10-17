@@ -11,6 +11,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   name: string;
+  fcmToken?: string;
   role: UserRole;
   photo?: string;
   hasShop: boolean;

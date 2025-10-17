@@ -4,7 +4,12 @@ export const userDocs = {
       tags: ["Users"],
       summary: "Get all users (Admin only)",
       description: "Fetch all users. Only accessible by Admins.",
-      security: [{ AuthorizationToken: [] }],
+         AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       responses: {
         200: { description: "Users fetched successfully" },
         401: { description: "Unauthorized" },
@@ -17,7 +22,12 @@ export const userDocs = {
       tags: ["Users"],
       summary: "Get current logged-in user's profile",
       description: "Retrieve profile of the currently authenticated user.",
-      security: [{ AuthorizationToken: [] }],
+         AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       responses: {
         200: {
           description: "Current user profile",
@@ -57,7 +67,12 @@ export const userDocs = {
     patch: {
       tags: ["Users"],
       summary: "Update logged-in user's profile",
-      security: [{ AuthorizationToken: [] }],
+         AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       requestBody: {
         required: true,
         content: {
@@ -88,7 +103,12 @@ export const userDocs = {
     patch: {
       tags: ["Users"],
       summary: "Update user's active status (Admin only)",
-      security: [{ AuthorizationToken: [] }],
+         AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       parameters: [
         {
           in: "path",

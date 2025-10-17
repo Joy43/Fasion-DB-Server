@@ -12,10 +12,14 @@ import router from "./app/routes";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import { authDocs } from "./swagger/authDocs";
-import { orderSwaggerDoc } from "./app/modules/order/orderSwaggerDoc";
+
 import { userDocs } from "./swagger/userDoc";
 import { productSwaggerDoc } from "./swagger/productSwaggerDoc";
 import { favoriteSwaggerDoc } from "./swagger/favoriteSwaggerDoc";
+import { categoryDocs } from "./swagger/category.swagger";
+import { shopDocs } from "./swagger/shopDocs";
+import { orderwaggerDoc } from "./swagger/orderSwaggerDoc";
+import { reviewDocs } from "./swagger/reviewDoc";
 
 // Example env variable
 const configs = { env: process.env.NODE_ENV || "development" };
@@ -25,51 +29,57 @@ const app: Application = express();
 // ------------------- Swagger Setup -------------------
 
 const swaggerOptions = {
-    definition: {
-        openapi: "3.0.0",
-        info: {
-            title: "FasionDB API - Documentation Written by SS JOY",
-            version: "1.0.0",
-            description: "Express API with auto-generated Swagger docs now available at /docs",
-        },
-        paths: {
-            ...authDocs,
-            ...userDocs,
-            ...orderSwaggerDoc,
-            ...productSwaggerDoc,
-            ...favoriteSwaggerDoc
-        },
-        servers: configs.env === "production" ? [
-            { url: "https://fasion-db-server.onrender.com" },
-            { url: "http://localhost:5050" },
-        ] : [
-            { url: "http://localhost:5050" },
-            { url: "https://fasion-db-server.onrender.com" },
-        ],
-        components: {
-            securitySchemes: {
-                AuthorizationToken: {
-                    type: "apiKey",
-                    in: "header",
-                    name: "Authorization",
-                    description: "Put your accessToken here ",
-                },
-            },
-        },
-        security: [
-            {
-                AuthorizationToken: []
-            },
-        ],
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "FasionDB API - Documentation Written by SS JOY",
+      version: "1.0.0",
+      description:
+        "Express API with auto-generated Swagger docs now available at /docs",
     },
-    apis: [
-        path.join(
-            __dirname,
-            configs.env === "production" ? "./**/*.js" : "./**/*.ts"
-        ),
+    paths: {
+      ...authDocs,
+      ...userDocs,
+      ...categoryDocs,
+      ...shopDocs,
+      ...orderwaggerDoc,
+      ...productSwaggerDoc,
+      ...favoriteSwaggerDoc,
+      ...reviewDocs,
+    },
+    servers:
+      configs.env === "production"
+        ? [
+            { url: "https://fasion-db-server.onrender.com" },
+            { url: "http://localhost:5050" },
+          ]
+        : [
+            { url: "http://localhost:5050" },
+            { url: "https://fasion-db-server.onrender.com" },
+          ],
+    components: {
+      securitySchemes: {
+        AuthorizationToken: {
+          type: "apiKey",
+          in: "header",
+          name: "Authorization",
+          description: "Put your accessToken here ",
+        },
+      },
+    },
+    security: [
+      {
+        AuthorizationToken: [],
+      },
     ],
+  },
+  apis: [
+    path.join(
+      __dirname,
+      configs.env === "production" ? "./**/*.js" : "./**/*.ts"
+    ),
+  ],
 };
-
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

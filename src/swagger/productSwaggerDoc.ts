@@ -1,10 +1,15 @@
 export const productSwaggerDoc = {
-  "/product": {
+  "/api/v1/product": {
     post: {
       summary: "Create a new product",
       description: "Create a new product by an authenticated shop or admin.",
       tags: ["Product"],
-      security: [{ AuthorizationToken: [] }],
+         AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       requestBody: {
         required: true,
         content: {
@@ -171,7 +176,12 @@ export const productSwaggerDoc = {
       summary: "Update product by ID",
       description: "Update one or more fields of a product.",
       tags: ["Product"],
-      security: [{ AuthorizationToken: [] }],
+         AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       parameters: [
         {
           name: "id",
@@ -206,7 +216,12 @@ export const productSwaggerDoc = {
       summary: "Delete product by ID",
       description: "Remove a product permanently from the database.",
       tags: ["Product"],
-      security: [{ AuthorizationToken: [] }],
+         AuthorizationToken: {
+        type: "apiKey",
+        in: "header",
+        name: "Authorization",
+        description: "Put your accessToken here ",
+      },
       parameters: [
         {
           name: "id",

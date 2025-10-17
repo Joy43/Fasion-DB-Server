@@ -3,6 +3,7 @@ import { UserRole } from "../user/user.interface";
 export interface IAuth {
   email: string;
   password: string;
+    fcmToken?: string;
   clientInfo: {
     device: 'pc' | 'mobile'; // Device type
     browser: string;         // Browser name
@@ -21,4 +22,5 @@ export interface IJwtPayload {
   hasShop: boolean;
   role: UserRole;
   isActive: boolean;
+   fcmToken?: string;
 }
