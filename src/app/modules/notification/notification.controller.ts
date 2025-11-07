@@ -1,19 +1,44 @@
 import { Request, Response } from "express";
 import { sendMessageToToken } from "../../utils/fcmService";
+import { JwtPayload } from "jsonwebtoken";
 
+interface AuthenticatedRequest extends Request {
+  user: JwtPayload; 
+}
 
-const tokens = new Set<string>();
+const tokens = new Map<string, string>(); // userId -> token
 
-export const registerToken = (req: Request, res: Response) => {
-  const { token } = req.body;
-  if (!token) return res.status(400).json({ error: "FCM token required" });
-  tokens.add(token);
-  res.json({ message: "Token registered successfully" });
+/**
+ * Register an FCM token for the authenticated user
+ */
+export const registerToken = (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const userId = req.user.userId || req.user.id;
+    const { token } = req.body;
+
+    if (!userId) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    if (!token) {
+      return res.status(400).json({ error: "FCM token required" });
+    }
+
+    tokens.set(userId, token);
+    res.json({ message: "Token registered successfully", userId });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
+/**
+ * Send a notification to a specific user's registered device
+ */
 export const sendNotification = async (req: Request, res: Response) => {
-  const { token, title, body, data } = req.body;
-  if (!token) return res.status(400).json({ error: "Token required" });
+  const { userId, title, body, data } = req.body;
+  if (!userId) return res.status(400).json({ error: "User ID required" });
+
+  const token = tokens.get(userId);
+  if (!token) return res.status(404).json({ error: "User FCM token not found" });
 
   try {
     const response = await sendMessageToToken(token, { title, body, data });
@@ -23,16 +48,19 @@ export const sendNotification = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Send a broadcast notification to all registered users
+ */
 export const broadcastNotification = async (req: Request, res: Response) => {
   const { title, body } = req.body;
   const results: any[] = [];
 
-  for (const token of tokens) {
+  for (const [userId, token] of tokens.entries()) {
     try {
       const resp = await sendMessageToToken(token, { title, body });
-      results.push({ token, success: true, resp });
+      results.push({ userId, success: true, resp });
     } catch (err: any) {
-      results.push({ token, success: false, error: err.message });
+      results.push({ userId, success: false, error: err.message });
     }
   }
 

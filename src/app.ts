@@ -20,6 +20,9 @@ import { categoryDocs } from "./swagger/category.swagger";
 import { shopDocs } from "./swagger/shopDocs";
 import { orderwaggerDoc } from "./swagger/orderSwaggerDoc";
 import { reviewDocs } from "./swagger/reviewDoc";
+import { flashSaleDocs } from "./swagger/flashsellDocs";
+import { couponDocs } from "./swagger/coupon.swagger";
+import { paymentDocs } from "./swagger/paymentDocs.swagger";
 
 // Example env variable
 const configs = { env: process.env.NODE_ENV || "development" };
@@ -42,10 +45,13 @@ const swaggerOptions = {
       ...userDocs,
       ...categoryDocs,
       ...shopDocs,
+      ...couponDocs,
       ...orderwaggerDoc,
       ...productSwaggerDoc,
       ...favoriteSwaggerDoc,
       ...reviewDocs,
+      ...flashSaleDocs,
+      ...paymentDocs,
     },
     servers:
       configs.env === "production"

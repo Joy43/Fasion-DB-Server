@@ -12,6 +12,7 @@ import { ReviewRoutes } from "../modules/review/review.routes";
 import { FlashSaleRoutes } from "../modules/flashSell/flashSale.routes";
 import { Favouriterouter } from "../modules/favourite/favorite.route";
 import { Notificationrouter } from "../modules/notification/notification.route";
+import { PaymentRoutes } from "../modules/payment/payment.routes";
 const router = Router();
 
 const moduleRoutes = [
@@ -58,6 +59,10 @@ const moduleRoutes = [
   {
     path: "/review",
     route: ReviewRoutes,
+  },
+  {
+    path: "/payment",
+    route: PaymentRoutes,
   },
   {
     path: "/favourite",

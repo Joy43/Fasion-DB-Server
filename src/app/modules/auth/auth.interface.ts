@@ -22,5 +22,5 @@ export interface IJwtPayload {
   hasShop: boolean;
   role: UserRole;
   isActive: boolean;
-   fcmToken?: string;
+  fcmToken?: string;
 }
