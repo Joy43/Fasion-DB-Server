@@ -1,8 +1,9 @@
 import cors from "cors";
-import express, { Application } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import cookieParser from "cookie-parser";
 import os from "os";
 import path from "path";
+import { readFile } from "fs/promises";
 import { StatusCodes } from "http-status-codes";
 
 import swaggerJsdoc from "swagger-jsdoc";
@@ -10,7 +11,6 @@ import swaggerUi from "swagger-ui-express";
 
 import router from "./app/routes";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
-import notFound from "./app/middleware/notFound";
 import { authDocs } from "./swagger/authDocs";
 
 import { userDocs } from "./swagger/userDoc";
@@ -106,60 +106,48 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1", router);
 
 // ------------------- Test Route -------------------
-app.get("/", (req, res) => {
-  const currentDateTime = new Date().toISOString();
-  const clientIp = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-  const serverHostname = os.hostname();
-  const serverPlatform = os.platform();
-  const serverUptime = os.uptime();
+// ------------------- Test Route -------------------
+app.get("/", async (req: Request, res: Response) => {
+  try {
+    const currentDateTime = new Date().toISOString();
+    const clientIp = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || req.ip || req.connection.remoteAddress || "unknown") as string;
+    const serverHostname = os.hostname();
+    const serverPlatform = os.platform();
+    const serverUptime = os.uptime();
+    const uptime = `${Math.floor(serverUptime / 3600)}h ${Math.floor((serverUptime % 3600) / 60)}m`;
 
-  const htmlContent = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>FasionDB Server Info</title>
-      <style>
-        body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 20px; }
-        .container { background: white; padding: 20px; border-radius: 10px; max-width: 600px; margin: auto; }
-        h1 { color: #FFA500; }
-        pre { background: #eee; padding: 10px; border-radius: 5px; }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <h1>Welcome to FasionDB Server</h1>
-        <p><strong>Version:</strong> 1.0.0</p>
+    const templatePath = path.join(__dirname, "templates", "index.html");
+    let htmlContent = await readFile(templatePath, "utf8");
 
-        <h2>Client Details</h2>
-        <pre>
-IP Address: ${clientIp}
-Accessed At: ${currentDateTime}
-        </pre>
+    htmlContent = htmlContent
+      .replace("{{env}}", configs.env)
+      .replace("{{clientIp}}", clientIp)
+      .replace("{{currentDateTime}}", currentDateTime)
+      .replace("{{serverHostname}}", serverHostname)
+      .replace("{{serverPlatform}}", serverPlatform)
+      .replace("{{uptime}}", uptime);
 
-        <h2>Server Details</h2>
-        <pre>
-Hostname: ${serverHostname}
-Platform: ${serverPlatform}
-Uptime: ${Math.floor(serverUptime / 3600)}h ${Math.floor(
-    (serverUptime % 3600) / 60
-  )}m
-        </pre>
+    res.status(StatusCodes.OK).send(htmlContent);
+  } catch (error) {
+    // Fallback to a simple response if template not found
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server info page template not found.");
+  }
+});
 
-        <h2>Developer Contact</h2>
-        <pre>
-Email: ssjoy43@gmail.com
-Website: https://shahsultan-islam-joy.vercel.app/
-        </pre>
-      </div>
-    </body>
-    </html>
-  `;
-
-  res.status(StatusCodes.OK).send(htmlContent);
+// ------------------- 404 Not Found Handler -------------------
+app.use(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const templatePath = path.join(__dirname, "templates", "404.htm");
+    const htmlContent = await readFile(templatePath, "utf8");
+    res.status(StatusCodes.NOT_FOUND).send(htmlContent);
+  } catch (error) {
+    // Fallback to a simple 404 if template not found
+    res.status(StatusCodes.NOT_FOUND).send("404 - Page Not Found");
+  }
 });
 
 // ------------------- Error Handlers -------------------
 app.use(globalErrorHandler);
-app.use(notFound);
+
 
 export default app;
